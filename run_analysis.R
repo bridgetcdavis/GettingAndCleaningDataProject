@@ -36,6 +36,7 @@ data <- select(data, "Subject", "Activity", contains("mean()"), contains("std()"
 ## Because the activitylabels are in numerical order, we can use the Activity number
 ## as an index instead of searching for a match.
 data <- mutate(data, Activity = activitylabels[Activity,2])
+write.table(data, "./data.txt", row.names = FALSE)
 
 ## 5. From the data set in step 4, creates a second, independent tidy data set with the 
 ## average of each variable for each activity and each subject.
@@ -43,3 +44,4 @@ averages <- aggregate(data[,3:68], list(data$Subject, data$Activity), mean)
 names(averages)[1] <- "Subject"
 names(averages)[2] <- "Activity"
 averages <- averages[order(averages$Subject),]
+write.table(averages, "./averages.txt", row.names = FALSE)
